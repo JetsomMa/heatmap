@@ -31,25 +31,25 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
       type: 'boolean',
       default: true
     },
-    space: { //图片资源来源
-      type: 'string',
-      default: '2D'
-    },
     pointKey: { //图片资源来源
       type: 'string',
       default: ''
     },
+    space: { //图片资源来源
+      type: 'string',
+      default: '2D'
+    },
     minValue: { //   小于这个值的将会被设置为0
       type: 'number',
-      defaultStep: 0
+      default: 0
     },
     gauss: { //   小于这个值的将会被设置为0
       type: 'number',
-      defaultStep: 4
+      default: 4
     },
     heightPointNumber: {
       type: 'number',
-      defaultStep: 1
+      default: 1
     },
     widthPointNumber: {
       type: 'number',
@@ -57,7 +57,7 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
     },
     heightStep: {
       type: 'number',
-      defaultStep: 1
+      default: 1
     },
     widthStep: {
       type: 'number',
@@ -71,6 +71,7 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
       type: 'asset',
       default: ''
     },
+    //////////////////////////////////////
     palette: { //热力颜色取值，可以是指定模式，也可以是颜色数组
       type: 'string',
       default: 'redblue' // Taken from Color Brewer. Must be a valid JSON string (readable by JSON.parse())
@@ -273,7 +274,10 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
       console.warn('aframe-heatmap3d:只能根据点数据或者图片数据生成热力图，优先选择点数据!');
     }
 
-    if (data.src && "src" in diff) {
+    if ((data.src && "src" in diff) || (data.srcOpacity && "srcOpacity" in diff)) {
+      thisComponent.canvasReady = false
+      thisComponent.ocanvasReady = false
+
       var img = data.src;
       if (typeof img === "string") {
         img = document.querySelectorAll('[src="' + img + '"]');
@@ -339,7 +343,10 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
         console.warn('aframe-heatmap3d: 因“thisComponent.canvasReady”状态异常而退出!');
         return;
       }
-    } // "src" in diff?
+    }else {
+    this.oimgBytes = []
+    this.imgBytes = []
+  } // "src" in diff?
 
     //如果是点整模式,则data.scaleOpacity不生效
     if ("particles" === data.renderMode && data.scaleOpacity) {

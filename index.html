@@ -77,7 +77,7 @@
           points: [],
           src: '#pngEU',
           srcOpacity: '',
-          invertElevation: true,
+          pointKey: '',
           opacityMin: 0,
           minValue: 0,
           widthStep: 90,
@@ -88,7 +88,7 @@
           points: [],
           src: '#pngEU',
           srcOpacity: '#pngEU',
-          invertElevation: true,
+          pointKey: '',
           opacityMin: 0,
           minValue: 0,
           widthStep: 90,
@@ -97,6 +97,8 @@
       } else if (loadName === "points") {
         document.getElementById('middle').setAttribute('aframe-heatmap3d', {
           points: window.points,
+          src: '',
+          srcOpacity: '',
           pointKey: '',
           widthStep: 90,
           heightStep: 90,
@@ -107,6 +109,8 @@
       } else if (loadName === "pointsAndKey") {
         document.getElementById('middle').setAttribute('aframe-heatmap3d', {
           points: window.keyPoints,
+          src: '',
+          srcOpacity: '',
           pointKey: 'value',
           widthStep: 1,
           heightStep: 1,
@@ -130,15 +134,14 @@
 
     <a-entity id="middle"
      aframe-heatmap3d="
-      ignoreZeroValues:true; 
+      ignoreZeroValues: true; 
       ignoreTransparentValues: true;
-      invertElevation: true;
-      stackBlurRadius:1;
-      palette:plasma;
-      flipPalette:false; 
+      stackBlurRadius: 1;
+      palette: plasma;
+      flipPalette: false; 
       renderMode: surface;
       scaleOpacity: true;
-      scaleOpacityMethod:log2;
+      scaleOpacityMethod: log2;
       opacityMin: 0;"
      scale="1 1 1">
     </a-entity>
