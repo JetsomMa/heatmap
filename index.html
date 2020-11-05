@@ -1,0 +1,171 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>aframe-heatmap</title>
+  <script src="./aframe.min.js"></script>
+  <script src="./d3.js"></script>
+
+  <script src="./aframe-heatmap3d.js"></script>
+  <!-- We will use StackBlur in this example -->
+  <script src="./stackblur.min.js"></script>
+
+  <!-- 控制按钮 -->
+  <script src="./aframe-orbit-controls-component.min.js"></script>
+  <script src="./points.js"></script>
+
+  <script src="./key-points.js"></script>
+
+  <style>
+    body {
+      font-size: 1.5em;
+      /* currently ems cause chrome bug misinterpreting rems on body element */
+      line-height: 1.6;
+      font-weight: 400;
+      font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    #buttonPanel {
+      width: 150px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      height: 38px;
+      padding: 0 30px;
+      color: #555;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 38px;
+      letter-spacing: .1rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      background-color: transparent;
+      border-radius: 4px;
+      border: 1px solid #bbb;
+      cursor: pointer;
+      box-sizing: border-box;
+      color: #FFF;
+      background-color: #33C3F0;
+      border-color: #33C3F0;
+      margin-top: 20px;
+    }
+
+    .button:focus {
+      color: #FFF;
+      background-color: #1EAEDB;
+      border-color: #1EAEDB;
+    }
+  </style>
+
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById('middle').addEventListener('loaded', function () {
+        // alert("重新渲染完成")
+      });
+      handleClick("src")
+    }
+
+    function handleClick(loadName) {
+      if (loadName === "src") {
+        document.getElementById('middle').setAttribute('aframe-heatmap3d', {
+          points: [],
+          src: '#pngEU',
+          srcOpacity: '',
+          invertElevation: true,
+          opacityMin: 0,
+          minValue: 0,
+          widthStep: 90,
+          heightStep: 90
+        });
+      } else if (loadName === "srcOpacity") {
+        document.getElementById('middle').setAttribute('aframe-heatmap3d', {
+          points: [],
+          src: '#pngEU',
+          srcOpacity: '#pngEU',
+          invertElevation: true,
+          opacityMin: 0,
+          minValue: 0,
+          widthStep: 90,
+          heightStep: 90
+        });
+      } else if (loadName === "points") {
+        document.getElementById('middle').setAttribute('aframe-heatmap3d', {
+          points: window.points,
+          pointKey: '',
+          widthStep: 90,
+          heightStep: 90,
+          minValue: 0,
+          heightPointNumber: 1023,
+          widthPointNumber: 1023
+        });
+      } else if (loadName === "pointsAndKey") {
+        document.getElementById('middle').setAttribute('aframe-heatmap3d', {
+          points: window.keyPoints,
+          pointKey: 'value',
+          widthStep: 1,
+          heightStep: 1,
+          minValue: 0.7,
+          heightPointNumber: 95,
+          widthPointNumber: 95
+        });
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+  <a-scene>
+    <a-assets>
+      <img id="pngEU" src="feitian.jpeg" style="display:none" />
+    </a-assets>
+
+    <a-sky color="#fff"></a-sky>
+
+    <a-entity id="middle"
+     aframe-heatmap3d="
+      ignoreZeroValues:true; 
+      ignoreTransparentValues: true;
+      invertElevation: true;
+      stackBlurRadius:1;
+      palette:plasma;
+      flipPalette:false; 
+      renderMode: surface;
+      scaleOpacity: true;
+      scaleOpacityMethod:log2;
+      opacityMin: 0;"
+     scale="1 1 1">
+    </a-entity>
+
+    <a-entity id="target" geometry="primitive: box" position="0 0 0" material="visible:false">
+    </a-entity>
+
+    <a-entity camera="active:true" id="camera_orbit" position="0, 60, 0" look-controls wasd-controls="fly:true"
+      orbit-controls="
+			autoRotate: false;
+			target: #target;
+			enableDamping: true;
+			dampingFactor: 0.125;
+			rotateSpeed:0.15;
+			zoomSpeed:0.5;
+			maxPolarAngle:2;
+			minDistance:1;
+			maxDistance:60;">
+    </a-entity>
+  </a-scene>
+
+  <div id="buttonPanel">
+    <div class="button" style="top:0px; " onclick="handleClick('src')">src图片加载</div>
+    <div class="button" style="top:0px; " onclick="handleClick('srcOpacity')">srcOpacity图片加载</div>
+    <div class="button" style="top:0px; " onclick="handleClick('points')">点数组加载</div>
+    <div class="button" style="top:0px; " onclick="handleClick('pointsAndKey')">点坐标数组加载</div>
+  </div>
+</body>
+
+</html>
