@@ -75,6 +75,7 @@
 
     function handleClick(loadName) {
       if (loadName === "src") {
+        middleElement.setAttribute('scale', "1 -1 1")
         middleElement.setAttribute('aframe-heatmap3d', {
           points: [],
           src: '#pngEU',
@@ -85,8 +86,8 @@
           widthStep: 90,
           heightStep: 90
         });
-        middleElement.setAttribute('scale', "1 -1 1")
       } else if (loadName === "srcOpacity") {
+        middleElement.setAttribute('scale', "1 -1 1")
         middleElement.setAttribute('aframe-heatmap3d', {
           points: [],
           src: '#pngEU',
@@ -97,8 +98,8 @@
           widthStep: 90,
           heightStep: 90
         });
-        middleElement.setAttribute('scale', "1 -1 1")
       } else if (loadName === "points") {
+        middleElement.setAttribute('scale', "1 1 1")
         middleElement.setAttribute('aframe-heatmap3d', {
           points: window.points,
           src: '',
@@ -110,8 +111,8 @@
           heightPointNumber: 1023,
           widthPointNumber: 1023
         });
-        middleElement.setAttribute('scale', "1 1 1")
       } else if (loadName === "pointsAndKey") {
+        middleElement.setAttribute('scale', "1 1 1")
         middleElement.setAttribute('aframe-heatmap3d', {
           points: window.keyPoints,
           src: '',
@@ -123,7 +124,6 @@
           heightPointNumber: 95,
           widthPointNumber: 95
         });
-        middleElement.setAttribute('scale', "1 1 1")
       }
     }
   </script>
