@@ -32,8 +32,14 @@ tags: Aframe
  widthStep | number | points非空时候生效，宽度方向单点步长，默认单位为原子单位，对应x轴 | 1
  src | asset | 图片元素资源的ID值 (e.g. '#myImage')  |
  srcOpacity | asset | 图片元素资源的ID值 (e.g. '#myImage'),用于透明过滤背景  |
- srcOpacityMobile | asset | URL or AFrame asset with a greyscale image to use for opacity values. |
- palette | string/array | Color palette | redblue
+ palette | string/array | 热力色阶类型或者数组 | 'redblue'
+ renderMode | string | 渲染模式 surface-面模式；particles-点阵模式 | 'surface'
+ particleSize | number | 点阵单个点的大小，为小方块，renderMode取值particles时候生效 | 1.0
+ ignoreZeroValues | boolean | 忽略0值，为true时候，0值位置会镂空 | true
+ ignoreTransparentValues | boolean | 忽略小于0的值，为true时候，小于0值位置会镂空 | true
+ stackBlurRadius | number | 设置图像圆润程度，src属性生效时候起作用 | 0
+ opacityMin | number | 最小透明度，取值0～1之间 | 0
+ opacityMax | number | 最大透明度，取值0～1之间 | 1
 
 <!-- flipPalette | Flip color palette upside-down? | false
 scaleOpacity | Scale opacity of peaks? | true
@@ -73,4 +79,3 @@ QQ/WeChat：1215458034
 ## 参考文献
 
 [aframe-heatmap3d](https://github.com/morandd/aframe-heatmap3d) https://github.com/morandd/aframe-heatmap3d
-
