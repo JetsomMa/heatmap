@@ -71,7 +71,6 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
       type: 'asset',
       default: ''
     },
-    //////////////////////////////////////
     palette: { //热力颜色取值，可以是指定模式，也可以是颜色数组
       type: 'string',
       default: 'redblue' // Taken from Color Brewer. Must be a valid JSON string (readable by JSON.parse())
@@ -94,10 +93,6 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
     },
     stackBlurRadius: { //设置图像圆润程度
       type: 'number',
-      default: -1
-    },
-    level: {
-      type: 'number',
       default: 0
     },
     opacityMin: {
@@ -108,6 +103,7 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
       type: 'number',
       default: 1
     },
+    //////////////////////////////////////
     scaleOpacity: {
       type: 'boolean',
       default: true
@@ -586,8 +582,6 @@ window.AFRAME.registerComponent('aframe-heatmap3d', {
         } else if (sm === 3) {
           vertexOpacities[di] = val * data.opacityMax;
         } 
-
-        if (data.ignoreZeroValues && val < data.level) vertexOpacities[di] = 0;
 
         // Calculate vertex color
         clr = this.funcColorize(data.flipPalette ? (1 - val) : val); // Returns a string like "#ff0000"
